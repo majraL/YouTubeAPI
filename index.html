@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>YouTube Search Engine</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/jquery.fancybox.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/script.js"></script>
+		<script src="js/jquery.fancybox.pack.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".fancybox").fancybox();
+				var s = "\"s\"";
+				console.log(s);
+				console.log(typeof s);
+				var theNumber = Number(prompt("unesi neki fini broj", ""));
+				console.log(theNumber);
+			});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<header>
+				<h1>Search<span>Vidz</span></h1>
+				<p>Samo ti Search-aj prijatelju</p>
+			</header>
+			<section>
+				<form id="search-form" name="search_bar" onsubmit="return search()">
+					<div class="field-container">
+						<input type="search" id="query" class="search-field" placeholder="Search...">
+						<input type="submit" id="search-btn" name="search-btn" value="">
+					</div>
+				</form>
+				<ul id="results"></ul>
+				<div id="buttons"></div>
+			</section>
+			<footer>
+				<p>Copyright Kaco &copy; 2015. All Rights Reserved. isus</p>
+			</footer>
+		</div>
+	</body>
+</html>
