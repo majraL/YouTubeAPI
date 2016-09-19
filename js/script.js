@@ -1,6 +1,8 @@
+$(document).ready(function(){
+	$(".fancybox").fancybox();
+});
 $(function(){
 	
-	// dohvat podataka za animaciju (focus, blur)
 	var searchField = $("#query");
 	var searchButton = $("#search-btn");
 	
@@ -21,7 +23,7 @@ $(function(){
 			width:"45%",
 		}, 500);
 		$(searchButton).animate({
-			right:"480px"
+			right:"250px"
 		}, 500);
 		$(this).attr("placeholder", "Search...");
 	});
@@ -35,14 +37,13 @@ $(function(){
 
 function search(){
 	
-	// clear results = nakon 'Next Page' da mi nestanu trenutni rezultati
+	// clear old results 
 	$("#results").html(" ");
 	$("#buttons").html(" ");
 	
 	// GET query za search (spremi search u varijablu q)
 	var q = $("#query").val();
 	
-	// izvrši GET request on API
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search", {
 			part: "snippet, id",
@@ -50,25 +51,23 @@ function search(){
 			type: "video",
 			key: "AIzaSyDHiRwaXZxwyqG7pV81VXk2i7AgMTLRWcs"
 		},
-		function(data){	//'data' je po default-u varijabla u koju se spremaju rezultati query-a
+		function(data){	//'data' default store 
 			var prevPageToken = data.prevPageToken;
 			var nextPageToken = data.nextPageToken;
 			
-			// provjera
 			console.log(data);
 			
-			// dohvat dobivenih podataka, iteriranje po item-u // i = index
-			// kao da piše for each(item in i) -> barem mislim?!
 			$.each(data.items, function(i, item){
 				
 				// dohvat podataka
-				var output = getOutput(item); // getOutput -> funkcija dole
+				var output = getOutput(item);
 				
 				// ispis podataka
 				$("#results").append(output);
 				
 			});
-					// display button-a
+		
+		// display button-a
 		var buttons = getButtons(prevPageToken, nextPageToken);
 		$("#buttons").append(buttons);
 
@@ -76,21 +75,16 @@ function search(){
 	);
 }
 
-// next button
 function nextPage(){
 	
-	//dohvat tokena i query-a
 	var token = $("#next-button").data("token");
 	var q = $("#next-button").data("query");
 	
-	// clear results = nakon 'Next Page' da mi nestanu trenutni rezultati
 	$("#results").html(" ");
 	$("#buttons").html(" ");
 	
-	// GET query za search (spremi search u varijablu q)
 	var q = $("#query").val();
 	
-	// izvrši GET request on API
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search", {
 			part: "snippet, id",
@@ -99,24 +93,22 @@ function nextPage(){
 			type: "video",
 			key: "AIzaSyDHiRwaXZxwyqG7pV81VXk2i7AgMTLRWcs"
 		},
-		function(data){	//'data' je po default-u varijabla u koju se spremaju rezultati query-a
+		function(data){
 			var prevPageToken = data.prevPageToken;
 			var nextPageToken = data.nextPageToken;
 			
 			console.log(data);
 			
-			// dohvat dobivenih podataka, iteriranje po item-u // i = index
-			// kao da piše for each(item in i) -> barem mislim?!
 			$.each(data.items, function(i, item){
 				
 				// dohvat podataka
-				var output = getOutput(item); // getOutput -> funkcija dole
+				var output = getOutput(item);
 				
 				// ispis podataka
 				$("#results").append(output);
 				
 			});
-					// display button-a
+		// display button-a
 		var buttons = getButtons(prevPageToken, nextPageToken);
 		$("#buttons").append(buttons);
 
@@ -124,21 +116,16 @@ function nextPage(){
 	);
 }
 
-// back button
 function prevPage(){
 	
-	//dohvat tokena i query-a
 	var token = $("#prev-button").data("token");
 	var q = $("#prev-button").data("query");
 	
-	// clear results = nakon 'Next Page' da mi nestanu trenutni rezultati
 	$("#results").html(" ");
 	$("#buttons").html(" ");
 	
-	// GET query za search (spremi search u varijablu q)
 	var q = $("#query").val();
 	
-	// izvrši GET request on API
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search", {
 			part: "snippet, id",
@@ -147,24 +134,22 @@ function prevPage(){
 			type: "video",
 			key: "AIzaSyDHiRwaXZxwyqG7pV81VXk2i7AgMTLRWcs"
 		},
-		function(data){	//'data' je po default-u varijablu u koju se spremaju rezultati query-a
+		function(data){
 			var prevPageToken = data.prevPageToken;
 			var nextPageToken = data.nextPageToken;
 			
 			console.log(data);
 			
-			// dohvat dobivenih podataka, iteriranje po item-u // i = index
-			// kao da piše for each(item in i) -> barem mislim?!
 			$.each(data.items, function(i, item){
 				
 				// dohvat podataka
-				var output = getOutput(item); // getOutput -> funkcija dole
+				var output = getOutput(item);
 				
 				// ispis podataka
 				$("#results").append(output);
 				
 			});
-					// display button-a
+		// display button-a
 		var buttons = getButtons(prevPageToken, nextPageToken);
 		$("#buttons").append(buttons);
 
@@ -179,7 +164,7 @@ function getOutput(item){
 	var videoId = item.id.videoId;
 	var title = item.snippet.title;
 	var description = item.snippet.description;
-	var thumb = item.snippet.thumbnails.high.url; //location of thumb image
+	var thumb = item.snippet.thumbnails.high.url;
 	var channelTitle = item.snippet.channelTitle;
 	var videoDate = item.snippet.publishedAt;
 	
